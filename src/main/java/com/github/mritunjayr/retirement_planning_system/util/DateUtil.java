@@ -10,10 +10,7 @@ public class DateUtil {
         return LocalDateTime.parse(date, FORMATTER);
     }
 
-    public static boolean isInRange(String date, String start, String end) {
-        LocalDateTime dt = parse(date);
-        LocalDateTime startDt = parse(start);
-        LocalDateTime endDt = parse(end);
-        return !dt.isBefore(startDt) && !dt.isAfter(endDt);
+    public static boolean isInRange(LocalDateTime date, LocalDateTime start, LocalDateTime end) {
+        return !date.isBefore(start) && !date.isAfter(end);
     }
 }

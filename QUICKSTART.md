@@ -9,7 +9,7 @@
 
 ### Step 1: Build the application
 ```bash
-mvnw.cmd clean package -DskipTests
+mvn clean package -DskipTests
 ```
 
 ### Step 2: Run the application
@@ -33,7 +33,7 @@ Expected output:
 
 ### Step 1: Build the JAR
 ```bash
-mvnw.cmd clean package -DskipTests
+mvn clean package -DskipTests
 ```
 
 ### Step 2: Build Docker image

@@ -3,8 +3,10 @@ package com.github.mritunjayr.retirement_planning_system.service;
 import com.github.mritunjayr.retirement_planning_system.dto.*;
 import com.github.mritunjayr.retirement_planning_system.util.CalculationUtil;
 import com.github.mritunjayr.retirement_planning_system.util.DateUtil;
+import com.github.mritunjayr.retirement_planning_system.util.NumberUtil;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
@@ -52,20 +54,21 @@ public class ReturnsService {
                 taxBenefit = CalculationUtil.calculateTaxBenefit(annualIncome, npsDeduction);
             }
 
-            savingsByDates.add(new SavingsByDate(k.getStart(), k.getEnd(), amount, profit, taxBenefit));
+            savingsByDates.add(new SavingsByDate(k.getStart(), k.getEnd(), 
+                NumberUtil.round(amount), NumberUtil.round(profit), NumberUtil.round(taxBenefit)));
         }
 
-        return new ReturnsResponse(totalAmount, totalCeiling, savingsByDates);
+        return new ReturnsResponse(NumberUtil.round(totalAmount), NumberUtil.round(totalCeiling), savingsByDates);
     }
 
-    private double applyQPeriods(String date, double remanent, List<QPeriod> qPeriods) {
+    private double applyQPeriods(LocalDateTime date, double remanent, List<QPeriod> qPeriods) {
         if (qPeriods == null) return remanent;
 
         QPeriod matchingPeriod = null;
         for (QPeriod q : qPeriods) {
             if (DateUtil.isInRange(date, q.getStart(), q.getEnd())) {
                 if (matchingPeriod == null || 
-                    DateUtil.parse(q.getStart()).isAfter(DateUtil.parse(matchingPeriod.getStart()))) {
+                    q.getStart().isAfter(matchingPeriod.getStart())) {
                     matchingPeriod = q;
                 }
             }
@@ -74,7 +77,7 @@ public class ReturnsService {
         return matchingPeriod != null ? matchingPeriod.getFixed() : remanent;
     }
 
-    private double applyPPeriods(String date, double remanent, List<PPeriod> pPeriods) {
+    private double applyPPeriods(LocalDateTime date, double remanent, List<PPeriod> pPeriods) {
         if (pPeriods == null) return remanent;
 
         for (PPeriod p : pPeriods) {

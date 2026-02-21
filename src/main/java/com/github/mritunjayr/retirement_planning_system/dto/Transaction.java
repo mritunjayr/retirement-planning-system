@@ -4,11 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Transaction {
-    private String date;
+    private LocalDateTime date;
     private double amount;
     private double ceiling;
     private double remanent;
