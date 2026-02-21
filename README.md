@@ -31,7 +31,7 @@ mvn clean package
 ### Docker Build
 
 ```bash
-docker build -t blk-hacking-ind-mritunjay-rai .
+docker build -t blk-hacking-ind-mritunjay-kumar .
 ```
 
 ## Running the Application
@@ -51,7 +51,7 @@ java -jar target/retirement-planning-system-0.0.1-SNAPSHOT.jar
 ### Docker Run
 
 ```bash
-docker run -d -p 5477:5477 blk-hacking-ind-mritunjay-rai
+docker run -d -p 5477:5477 blk-hacking-ind-mritunjay-kumar
 ```
 
 The application will be available at: `http://localhost:5477/blackrock`
@@ -269,7 +269,7 @@ Configuration can be modified in `src/main/resources/application.yaml`
 
 ## Author
 
-Mritunjay Rai
+Mritunjay Kumar
 
 ## License
 

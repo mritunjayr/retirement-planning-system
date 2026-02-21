@@ -38,12 +38,12 @@ mvnw.cmd clean package -DskipTests
 
 ### Step 2: Build Docker image
 ```bash
-docker build -t blk-hacking-ind-mritunjay-rai .
+docker build -t blk-hacking-ind-mritunjay-kumar .
 ```
 
 ### Step 3: Run Docker container
 ```bash
-docker run -d -p 5477:5477 --name retirement-app blk-hacking-ind-mritunjay-rai
+docker run -d -p 5477:5477 --name retirement-app blk-hacking-ind-mritunjay-kumar
 ```
 
 ### Step 4: Check logs
