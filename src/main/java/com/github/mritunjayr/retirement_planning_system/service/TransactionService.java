@@ -32,7 +32,7 @@ public class TransactionService {
                     t.getRemanent(), "Negative amounts are not allowed"));
             } else if (seenDates.contains(t.getDate())) {
                 invalid.add(new InvalidTransaction(t.getDate(), t.getAmount(), t.getCeiling(), 
-                    t.getRemanent(), "Duplicate transaction date"));
+                    t.getRemanent(), "Duplicate transaction"));
             } else {
                 valid.add(t);
                 seenDates.add(t.getDate());
