@@ -38,9 +38,9 @@ public class FilterService {
             remanent = applyPPeriods(expense.getDate(), remanent, request.getP());
 
             // Check if in any k period
-            boolean inAPeriod = isInAnyKPeriod(expense.getDate(), request.getK());
+            boolean inKPeriod = isInAnyKPeriod(expense.getDate(), request.getK());
 
-            if (inAPeriod) {
+            if (inKPeriod) {
                 valid.add(new FilteredTransaction(expense.getDate(), expense.getAmount(), ceiling,
                         NumberUtil.round(remanent), true));
             } else {
@@ -49,7 +49,7 @@ public class FilterService {
                 invalidTx.put("amount", expense.getAmount());
                 invalidTx.put("ceiling", ceiling);
                 invalidTx.put("remanent", NumberUtil.round(remanent));
-                invalidTx.put("inAPeriod", false);
+                invalidTx.put("inKPeriod", false);
                 invalid.add(invalidTx);
             }
         }
