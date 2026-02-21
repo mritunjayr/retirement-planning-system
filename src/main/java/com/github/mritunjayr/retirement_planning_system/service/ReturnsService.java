@@ -18,7 +18,12 @@ public class ReturnsService {
         double annualIncome = request.getWage() * 12;
 
         List<Transaction> transactions = new ArrayList<>();
+        Set<LocalDateTime> seenDates = new HashSet<>();
+        
         for (ExpenseRequest expense : request.getTransactions()) {
+            if (expense.getAmount() < 0 || seenDates.contains(expense.getDate())) continue;
+            seenDates.add(expense.getDate());
+            
             double ceiling = CalculationUtil.calculateCeiling(expense.getAmount());
             double remanent = CalculationUtil.calculateRemanent(expense.getAmount());
 
