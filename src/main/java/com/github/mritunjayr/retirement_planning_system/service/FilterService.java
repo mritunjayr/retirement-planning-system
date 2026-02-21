@@ -15,18 +15,27 @@ public class FilterService {
     public FilterResponse filterTransactions(FilterRequest request) {
         List<FilteredTransaction> valid = new ArrayList<>();
         List<Object> invalid = new ArrayList<>();
+        Set<LocalDateTime> seenDates = new HashSet<>();
 
         for (ExpenseRequest expense : request.getTransactions()) {
             if (expense.getAmount() < 0) {
                 Map<String, Object> invalidTx = new HashMap<>();
                 invalidTx.put("date", expense.getDate());
                 invalidTx.put("amount", expense.getAmount());
-                invalidTx.put("ceiling", 0.0);
-                invalidTx.put("remanent", 0.0);
                 invalidTx.put("message", "Negative amounts are not allowed");
                 invalid.add(invalidTx);
                 continue;
             }
+
+            if (seenDates.contains(expense.getDate())) {
+                Map<String, Object> invalidTx = new HashMap<>();
+                invalidTx.put("date", expense.getDate());
+                invalidTx.put("amount", expense.getAmount());
+                invalidTx.put("message", "Duplicate transaction");
+                invalid.add(invalidTx);
+                continue;
+            }
+            seenDates.add(expense.getDate());
 
             double ceiling = NumberUtil.round(CalculationUtil.calculateCeiling(expense.getAmount()));
             double remanent = NumberUtil.round(CalculationUtil.calculateRemanent(expense.getAmount()));
