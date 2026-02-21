@@ -1,3 +1,7 @@
 spring:
   application:
     name: retirement-planning-system
+server:
+  servlet:
+    context-path: /blackrock
+  port: 5477
